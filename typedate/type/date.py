@@ -11,9 +11,9 @@ class TypeDate(object):
         self.timezone = parse_timezone(timezone)
         self.timedelta = parse_timedelta(timedelta)
 
-    def __call__(self, string):
+    def __call__(self, datestr):
         if self.fmt:
-            date = datetime.strptime(string, self.fmt)
+            date = datetime.strptime(datestr, self.fmt)
         else:
-            date = default_parse(string)
+            date = default_parse(datestr)
         return date.replace(tzinfo=self.timezone) + self.timedelta
