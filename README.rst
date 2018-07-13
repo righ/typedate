@@ -1,3 +1,6 @@
+.. image:: https://circleci.com/gh/righ/typedate.svg?style=svg
+    :target: https://circleci.com/gh/righ/typedate
+
 Requirements
 ============
 
