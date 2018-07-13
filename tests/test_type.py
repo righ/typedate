@@ -8,7 +8,7 @@ import pytz
 
 class TestTypeDate(TestCase):
     def _makeOne(self, *args, **kwargs):
-        from ..type.date import TypeDate
+        from typedate import TypeDate
         return TypeDate(*args, **kwargs)
 
     def test_fmt(self):
@@ -42,7 +42,7 @@ class TestTypeDate(TestCase):
 
 class TestTypeZone(TestCase):
     def _makeOne(self, *args, **kwargs):
-        from ..type.zone import TypeZone
+        from typedate import TypeZone
         return TypeZone(*args, **kwargs)
 
     def test_locale(self):
@@ -51,15 +51,12 @@ class TestTypeZone(TestCase):
 
     def test_timediff(self):
         typezone = self._makeOne()
-        self.assertEqual(
-            datetime(2016, 5, 5, tzinfo=typezone('+09:00')),
-            datetime(2016, 5, 5, tzinfo=pytz.timezone('Asia/Tokyo'))
-        )
+        self.assertEqual(typezone('+09:00').utcoffset(), timedelta(hours=9))
 
 
 class TestTypeDelta(TestCase):
     def _makeOne(self, *args, **kwargs):
-        from ..type.delta import TypeDelta
+        from typedate import TypeDelta
         return TypeDelta(*args, **kwargs)
 
     def test_relativedelta(self):

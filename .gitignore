@@ -6,8 +6,10 @@
 
 .idea
 .coverage
-.tox/*
-.cache/*
+.tox
+.cache
+.bash_history
+.pytest_cache
 
 htmlcov/*
 bin/*
@@ -17,11 +19,11 @@ lib/*
 local/*
 
 dist/*
-venv/*
+venv/
 
 __pycache__/*
 
-typedate.egg-info/*
+*.egg-info
 
 *.pyc
 *.pyo
@@ -29,3 +31,5 @@ typedate.egg-info/*
 
 coverage.xml
 junit-py*.xml
+
+.vscode

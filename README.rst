@@ -4,16 +4,26 @@ Requirements
 - Python 2.7
 - Python 3.3 or later
 
-Install
-=======
+- Tested with 2.7, 3.7
+
+Installation
+============
 
 .. code-block:: sh
 
   $ pip install typedate
 
+Types
+=====
+This library provides 3 classes parsing string, and outputting object related to time.
+
+:TypeDate: Date (and time) parser parses string. Time format, timezone and timedelta are specified when it is made.
+:TypeDelta: Delta parser parses numbers with time units separeted a space. It will be interpreted as delta function arguments.
+:TypeZone: Timezone parser parses timezone string. 
+
 Usage
 =====
-you can use as follows:
+For example, use the classes with `argparse` as follows:
 
 .. code-block:: python
 
@@ -57,11 +67,11 @@ you can use as follows:
       print('timedelta:\t', args.timedelta, type(args.timedelta))
       print('relativedelta:\t', args.relativedelta, type(args.relativedelta))
 
-and,
+Saving a file like above as `command.py`, and execute it as follows.
 
 .. code-block:: sh
 
-  $ python test_command.py \
+  $ python command.py \
     --datetime1='19880522' \
     --datetime2='2016-01-01' \
     --datetime3='2016/01/01' \
