@@ -8,12 +8,13 @@ NUMBER_DEFINITION = re.compile(r'[0-9+\-]+')
 
 
 class TypeDelta(object):
-    def __init__(self, cls=compat.timedelta):
+    def __init__(self, cls=compat.timedelta, callback=None):
         self.cls = cls
+        self.callback = callback
 
     def __call__(self, deltastr):
-        return reduce(self.cls.__add__, (
-            self.parse(token) for token in deltastr.split()))
+        value = reduce(self.cls.__add__, (self.parse(token) for token in deltastr.split()))
+        return self.callback(value) if self.callback else value
 
     def parse(self, token):
         match = NUMBER_DEFINITION.search(token)

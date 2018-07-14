@@ -39,6 +39,10 @@ class TestTypeDate(TestCase):
             typedate('2016-05-05'),
             datetime(2016, 5, 5, tzinfo=pytz.timezone('Asia/Tokyo')))
 
+    def test_callback(self):
+        typedate = self._makeOne(callback=lambda dt: dt.strftime('%Y=%m=%d'))
+        self.assertEqual(typedate('2016-05-05'), '2016=05=05')
+
 
 class TestTypeZone(TestCase):
     def _makeOne(self, *args, **kwargs):
@@ -52,6 +56,10 @@ class TestTypeZone(TestCase):
     def test_timediff(self):
         typezone = self._makeOne()
         self.assertEqual(typezone('+09:00').utcoffset(), timedelta(hours=9))
+    
+    def test_callback(self):
+        typezone = self._makeOne(callback=lambda tz: datetime(2018, 7, 14, tzinfo=tz))
+        assert typezone('UTC') == datetime(2018, 7, 14, tzinfo=pytz.UTC)
 
 
 class TestTypeDelta(TestCase):
@@ -75,3 +83,7 @@ class TestTypeDelta(TestCase):
         typedelta = self._makeOne(cls=timedelta)
         with self.assertRaises(TypeError):
             typedelta('1years 2months -3days')
+        
+    def test_callback(self):
+        typedelta = self._makeOne(callback=lambda delta: datetime(2018, 1, 1) + delta)
+        assert typedelta('3days 2hours') == datetime(2018, 1, 4, 2)

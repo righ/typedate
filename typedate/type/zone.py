@@ -25,10 +25,14 @@ class TzInfo(tzinfo):
 
 
 class TypeZone(object):
+    def __init__(self, callback=None):
+        self.callback = callback
+
     def __call__(self, zonestr):
         match = TIMEZONE_DEFINITION.search(zonestr)
         if match:
-            return TzInfo(match)
+            tz = TzInfo(match)
         else:
             import pytz
-            return pytz.timezone(zonestr)
+            tz = pytz.timezone(zonestr)
+        return self.callback(tz) if self.callback else tz

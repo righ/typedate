@@ -97,7 +97,13 @@ Saving a file like above as `command.py`, and execute it as follows.
 
 History
 ==========
-1.0.X
+1.1.x
+-----
+Added a callback argument to each types. 
+
+It is able to return other values using originally value.
+
+1.0.x
 -----
 * first release
 
