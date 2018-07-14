@@ -31,6 +31,7 @@ For example, use the classes with `argparse` as follows:
 .. code-block:: python
 
   #!/usr/bin/env python
+  from datetime import datetime
   from typedate import TypeDate, TypeDelta, TypeZone
   
   if __name__ == '__main__':
@@ -46,6 +47,7 @@ For example, use the classes with `argparse` as follows:
       # timezone parsing
       parser.add_argument("--timezone1", type=TypeZone())
       parser.add_argument("--timezone2", type=TypeZone())
+      parser.add_argument("--timezone3", type=TypeZone(callback=lambda tz: datetime(2018, 7, 14, tzinfo=tz)))
 
       # timedelta parsing
       ## if python-dateutil installed, used automatically dateutil.relativedelta.relativedelta else datetime.timedelta.
@@ -65,6 +67,7 @@ For example, use the classes with `argparse` as follows:
 
       print('timezone1:\t', args.timezone1, type(args.timezone1))
       print('timezone2:\t', args.timezone2, type(args.timezone2))
+      print('dt with tz3:\t', args.timezone3, type(args.timezone3))
 
       print('defaultdelta:\t', args.defaultdelta, type(args.defaultdelta))
       print('timedelta:\t', args.timedelta, type(args.timedelta))
@@ -81,6 +84,7 @@ Saving a file like above as `command.py`, and execute it as follows.
     --datetime4='01/01 00:00 2016' \
     --timezone1='-0500' \
     --timezone2='Asia/Tokyo'  \
+    --timezone3='04:00' \
     --defaultdelta='1years -2months 3days 4hours 5minutes 6seconds' \
     --timedelta='3days 4hours 5minutes 6seconds' \
     --relativedelta='1years -2months 3days 4hours 5minutes 6seconds'
@@ -91,6 +95,7 @@ Saving a file like above as `command.py`, and execute it as follows.
   datetime4:       2016-11-04 04:05:06 <class 'datetime.datetime'>
   timezone1:       -05:00 <class 'typedate.type.zone.TzInfo'>
   timezone2:       Asia/Tokyo <class 'pytz.tzfile.Asia/Tokyo'>
+  dt with tz3:     2018-07-14 00:00:00+04:00 <class 'datetime.datetime'>
   defaultdelta:    relativedelta(years=+1, months=-2, days=+3, hours=+4, minutes=+5, seconds=+6) <class 'dateutil.relativedelta.relativedelta'>
   timedelta:       3 days, 4:05:06 <class 'datetime.timedelta'>
   relativedelta:   relativedelta(years=+1, months=-2, days=+3, hours=+4, minutes=+5, seconds=+6) <class 'dateutil.relativedelta.relativedelta'>
